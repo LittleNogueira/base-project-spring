@@ -1,4 +1,4 @@
-package com.nogueira.loja.handler;
+package com.nogueira.loja.config.handler;
 
 import org.springframework.validation.FieldError;
 

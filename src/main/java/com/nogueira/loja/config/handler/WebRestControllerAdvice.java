@@ -1,7 +1,7 @@
-package com.nogueira.loja.handler;
+package com.nogueira.loja.config.handler;
 
-import com.nogueira.loja.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,8 +21,10 @@ public class WebRestControllerAdvice {
         return exceptions.getBindingResult().getFieldErrors().stream().map(ErrorForm::new).collect(Collectors.toList());
     }
 
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NotFoundException.class)
-    public void handler(NotFoundException e){}
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(BadCredentialsException.class)
+    public ErrorSimple handler(BadCredentialsException e){
+        return new ErrorSimple(e.getMessage());
+    }
 
 }
